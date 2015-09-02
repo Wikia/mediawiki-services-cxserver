@@ -4,12 +4,13 @@ var express = require( 'express' ),
 	pkg = require( __dirname + '/../package.json' ),
 	app = express();
 
-app.get( '/page/:language/:title', function ( req, res ) {
+app.get( '/page/:language/:title/:apiurl?', function ( req, res ) {
 	var sourceLanguage = req.params.language,
 		title = req.params.title,
+		apiUrl = req.params.apiurl,
 		CXSegmenter = require( __dirname + '/../segmentation/CXSegmenter.js' ).CXSegmenter,
 		PageLoader = require( __dirname + '/../pageloader/PageLoader.js' ).PageLoader,
-		pageloader = new PageLoader( title, sourceLanguage );
+		pageloader = new PageLoader( title, sourceLanguage, apiUrl );
 
 	pageloader.load().then(
 		function ( response ) {
